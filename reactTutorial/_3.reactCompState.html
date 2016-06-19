@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>(ilex)react 教程系列:组件的状态</title>
+        <meta charset="UTF-8">
+        <!--
+            1、从http://www.bootcdn.cn/ 引用react.js,和browser.js（用以编译jsx）
+        -->
+        <script type="text/javascript" src="core/react.min.js"></script>
+        <script type="text/javascript" src="core/react-dom.min.js"></script>
+        <script type="text/javascript" src="core/browser.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            
+        </div>
+    <script type="text/babel">
+        var MainPage = React.createClass({
+            getInitialState:function(){
+                return {
+                    clickCount:0
+                };
+            },
+            changCount: function(){
+                this.setState({
+                    clickCount:this.state.clickCount +1
+                });
+            },
+            render: function() {
+                return (
+                    <div>
+                        <h1>React 组件的状态</h1>
+                        <button onClick={this.changCount}>点击我</button>
+                        <br/>
+                        <span>点击的总次数为:{this.state.clickCount}</span>
+                    </div>
+                );
+            }
+        });
+        
+        var mainPage = ReactDOM.render(
+            <MainPage />,
+            document.getElementById("app")
+        );
+    
+
+    </script>
+    </body>
+</html>
