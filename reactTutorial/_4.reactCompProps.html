@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>(ilex)react 教程系列:组件的参数props</title>
+        <meta charset="UTF-8">
+        <!--
+            1、从http://www.bootcdn.cn/ 引用react.js,和browser.js（用以编译jsx）
+        -->
+        <script type="text/javascript" src="core/react.min.js"></script>
+        <script type="text/javascript" src="core/react-dom.min.js"></script>
+        <script type="text/javascript" src="core/browser.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            
+        </div>
+    <script type="text/babel">
+        var MainPage = React.createClass({
+            getInitialState:function(){
+                return {
+                   message:[
+                    "窗前明月光",
+                    "疑是地上霜",
+                    "举头望明月",
+                    "低头思故乡"
+                   ]
+                };
+            },
+            render: function() {
+                return (
+                    <div>
+                        <h1>{this.props.title}</h1>
+                        <CommentBox poetry={this.state.message}/>
+                    </div>
+                );
+            }
+        });
+        
+        var CommentBox = React.createClass({
+            propTypes:{
+                poetry: React.PropTypes.array.isRequired
+            },
+            //父组件自如果未传递props,则采用默认参数
+            getDefaultProps:function(){
+                return {
+                   poetry: ["默认消息"]
+                };
+            },
+            render: function(){
+                var comments = []; 
+                //接收父组件传递的数据，必须是数组,此时如果是其它数据则会报错,需要进行验证
+                var msg = this.props.poetry;
+                msg.forEach(function(val,index){
+                    comments.push(<p>第{index + 1}个人说:{val}</p>);
+                });
+                return (
+                    <div>{comments}</div>
+                );
+            }
+        });
+        
+        var propsTitle = "React 组件的参数props(古诗填充之静夜思:)";
+        var mainPage = ReactDOM.render(
+            <MainPage title={propsTitle}/>,
+            document.getElementById("app")
+        );
+    
+
+    </script>
+    </body>
+</html>
