@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>(ilex)react 教程系列:事件</title>
+        <meta charset="UTF-8">
+        <!--
+            1、从http://www.bootcdn.cn/ 引用react.js,和browser.js（用以编译jsx）
+        -->
+        <script type="text/javascript" src="core/react.min.js"></script>
+        <script type="text/javascript" src="core/react-dom.min.js"></script>
+        <script type="text/javascript" src="core/browser.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            
+        </div>
+    <script type="text/babel">
+        var MainPage = React.createClass({
+            render: function() {
+                return (
+                    <div>
+                        <h1>{this.props.title}</h1>
+                        <FormContent />
+                    </div>
+                );
+            }
+        });
+        
+        var FormContent = React.createClass({
+            getInitialState:function(){
+                return {
+                    username:"输入用户名...",
+                    pwd:"输入密码...",
+                    otherInfo:"输入其它信息...",
+                    job:"2"
+                };
+            },
+            submitHandle: function(e){
+                e.preventDefault();//阻止默认表单提交
+                console.log(e);
+            },
+            otherInfoChange:function(e){
+                this.setState({
+                    otherInfo:e.target.value
+                });
+            },
+            selectChange:function(e){
+                this.setState({
+                    job:e.target.value
+                });
+            },
+            render: function(){
+                return (
+                    <form onSubmit={this.submitHandle}>
+                        用户名:<input type="text" defaultValue={this.state.username} />
+                        <br/>
+                        密  码:<input type="text" defaultValue={this.state.pwd} />
+                        <br/>
+                        其它信息:<input type="text" value={this.state.otherInfo} onChange={this.otherInfoChange} />
+                        <br/>
+                        <select value="2" value={this.state.job} onChange={this.selectChange}>
+                            <option value="1">程序员</option>   
+                            <option value="2">测试员</option>
+                            <option value="3">采购员</option>
+                            <option value="4">检测员</option> 
+                        </select>
+                        <br />
+                        <RadioBtns />
+                        <button type="submit">提交</button>
+                    </form>
+                );
+            }
+        });
+        
+        //注意，input的name属性一致，可以保证radio是单选
+        var RadioBtns = React.createClass({
+            render: function(){
+                return (
+                    <p>
+                        <input name="account" type="radio" value="1"/>超级管理员
+                        <input name="account" type="radio" value="2"/>普通管理员
+                        <input name="account" type="radio" value="3" defaultChecked="3"/>职员
+                    </p>
+                );
+            }
+        });
+        
+        var propsTitle = "React 事件";
+        var mainPage = ReactDOM.render(
+            <MainPage title={propsTitle}/>,
+            document.getElementById("app")
+        );
+    
+
+    </script>
+    </body>
+</html>
