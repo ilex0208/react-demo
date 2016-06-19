@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>(ilex)react 教程系列</title>
+        <meta charset="UTF-8">
+        <!--
+            1、从http://www.bootcdn.cn/ 引用react.js,和browser.js（用以编译jsx）
+        -->
+        <script type="text/javascript" src="core/react.min.js"></script>
+        <script type="text/javascript" src="core/react-dom.min.js"></script>
+        <script type="text/javascript" src="core/browser.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            
+        </div>
+    <script type="text/babel">
+        var HelloWorld = React.createClass({
+            render: function() {
+                return (
+                    <h1>Hello React!</h1>
+                );
+            }
+        });
+
+        
+        ReactDOM.render(
+            <HelloWorld />,
+            document.getElementById("app")
+        );
+    
+
+    </script>
+    </body>
+</html>
