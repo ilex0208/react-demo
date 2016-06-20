@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>(ilex)react 教程系列:数据绑定</title>
+        <meta charset="UTF-8">
+        <!--
+            1、从http://www.bootcdn.cn/ 引用react.js,和browser.js（用以编译jsx）
+        -->
+        <script type="text/javascript" src="core/react-with-addons.min.js"></script>
+        <script type="text/javascript" src="core/react-dom.min.js"></script>
+        <script type="text/javascript" src="core/browser.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            
+        </div>
+    <script type="text/babel">
+        var MainPage = React.createClass({
+            render: function() {
+                return (
+                    <div>
+                        <h1>{this.props.title}</h1>
+                        <SubContent />
+                    </div>
+                );
+            }
+        });
+        
+        var SubContent = React.createClass({
+            mixins: [React.addons.LinkedStateMixin],
+            getInitialState:function(){
+                return {
+                    username:"输入用户名...",
+                    pwd:"输入区域信息..."
+                };
+            },
+            render: function(){
+                return (
+                    <div>
+                        用户名:<input type="text" defaultValue={this.state.username} valueLink={this.linkState('username')} />
+                        <br />
+                        所在区域:<input type="text" defaultValue={this.state.pwd} valueLink={this.linkState('pwd')} />
+                        <br />
+                        <UserInfo name={this.state.username} password={this.state.pwd} />
+                    </div>
+                );
+            }
+        });
+
+        var UserInfo = React.createClass({
+            render: function(){
+                return (
+                    <div>
+                       用户信息如下:<br />
+                       <span>用户名:<b>{this.props.name}</b></span><br />
+                       <span>所在区域:<b>{this.props.password}</b></span>
+                    </div>
+                );
+            }
+        });
+        
+        
+        var propsTitle = "React 数据绑定";
+        var mainPage = ReactDOM.render(
+            <MainPage title={propsTitle}/>,
+            document.getElementById("app")
+        );
+    
+
+    </script>
+    </body>
+</html>
