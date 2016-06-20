@@ -5,6 +5,7 @@
         <meta charset="UTF-8">
         <!--
             1、从http://www.bootcdn.cn/ 引用react.js,和browser.js（用以编译jsx）
+            2、将react改为react-with-addons
         -->
         <script type="text/javascript" src="core/react-with-addons.min.js"></script>
         <script type="text/javascript" src="core/react-dom.min.js"></script>
@@ -31,17 +32,27 @@
             getInitialState:function(){
                 return {
                     username:"输入用户名...",
-                    pwd:"输入区域信息..."
+                    areaInfo:"输入区域信息...",
+                    showInfo:true,
+                    detailInfo:"详细信息..."
                 };
             },
             render: function(){
+                var detailInfoStyle={
+                    display:this.state.showInfo?"block":"none"
+                };
                 return (
                     <div>
                         用户名:<input type="text" defaultValue={this.state.username} valueLink={this.linkState('username')} />
                         <br />
-                        所在区域:<input type="text" defaultValue={this.state.pwd} valueLink={this.linkState('pwd')} />
+                        所在区域:<input type="text" defaultValue={this.state.areaInfo} valueLink={this.linkState('areaInfo')} />
                         <br />
-                        <UserInfo name={this.state.username} password={this.state.pwd} />
+                        详细信息:<br />
+                        <input type="checkbox" checkedLink={this.linkState('showInfo')} />显示
+                        <br />
+                        <textarea style={detailInfoStyle}  defaultValue={this.state.detailInfo} valueLink={this.linkState('detailInfo')} />
+                        <br />
+                        <UserInfo name={this.state.username} area={this.state.areaInfo} infos={this.state.detailInfo}/>
                     </div>
                 );
             }
@@ -49,11 +60,13 @@
 
         var UserInfo = React.createClass({
             render: function(){
+                //此处可对props采用es6 的新特新进行解构赋值
                 return (
                     <div>
-                       用户信息如下:<br />
+                       用户信息结果如下:<br />
                        <span>用户名:<b>{this.props.name}</b></span><br />
-                       <span>所在区域:<b>{this.props.password}</b></span>
+                       <span>所在区域:<b>{this.props.area}</b></span><br />
+                       <span>详细信息:<b>{this.props.infos}</b></span>
                     </div>
                 );
             }
