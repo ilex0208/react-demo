@@ -1,3 +1,6 @@
+import React,{Component} from 'react';
+import './index.css';
+
 class Home extends React.Component {
   //use state
   constructor(props){
